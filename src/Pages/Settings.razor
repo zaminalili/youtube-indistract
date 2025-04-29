@@ -1,0 +1,68 @@
+﻿@page "/settings"
+
+
+<div class="container mt-3">
+    <div class="row justify-content-md-center">
+        <div class="col col-lg-2">
+            
+        </div>
+        <div class="col-md-auto">
+			<h3>API Key</h3>
+            <p>To use the Youtube Data API, you need to provide a valid API key. You can obtain one from the Google Cloud Console.</p>
+            
+            <div class="input-group mb-3 mt-3">
+                <span class="input-group-text" id="basic-addon1">
+                    <i class="fa-solid fa-key"></i>
+                </span>
+                <input type="password" @bind="inputValue" class="form-control" placeholder="Enter api key">
+
+                <button class="btn btn-outline-secondary" @onclick="Save">Save</button>
+            </div>
+
+
+            @if (!string.IsNullOrEmpty(message))
+            {
+                <div class="alert alert-danger" role="alert">
+                    @message
+                </div>
+            }
+
+            <div class="alert alert-warning" role="alert">
+                ⚠ Restrict the API key to allow requests only from this site in Google Cloud Console
+            </div>
+        </div>
+        <div class="col col-lg-2">
+            
+        </div>
+    </div>
+</div>
+
+
+
+@code {
+    private string inputValue;
+    private string? message;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Load();
+    }
+
+
+    private async Task Save()
+    {
+        if(string.IsNullOrEmpty(inputValue))
+        {
+            message = "Api key cannot be empty.";
+			return;
+        }
+
+        await localStorageService.SetItemAsync("apiKey", inputValue);
+        await Load();
+    }
+
+    private async Task Load()
+    {
+        inputValue = await localStorageService.GetItemAsync("apiKey");
+    }
+}
