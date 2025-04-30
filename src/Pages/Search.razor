@@ -1,0 +1,97 @@
+﻿@page "/search/{query}"
+<PageTitle>
+    Search
+</PageTitle>
+
+
+@code {
+    [Parameter] public string query { get; set; } = string.Empty;
+
+    private SearchResult? searchResult;
+    private bool isLoading = true;
+    private string nextPageToken = string.Empty;
+	private string apiKey;
+	private string mesage = "Result not found";
+
+    protected override async Task OnParametersSetAsync()
+    {
+        isLoading = true;
+
+        apiKey = await localStorageService.GetItemAsync("apiKey");
+        
+		if (string.IsNullOrEmpty(apiKey))
+		{
+			navigationManager.NavigateTo("/settings");
+			return;
+		};
+        
+        await SearchVideos(query, "");
+
+        isLoading = false;
+    }
+
+    async Task SearchVideos(string q, string pageToken)
+    {
+        if (!string.IsNullOrWhiteSpace(query))
+        {
+            var response = await youtubeApiService.SearchVideosAsync(q, apiKey);
+            if (response.IsSuccess)
+            {
+                searchResult = response.Data;
+                nextPageToken = response.Data?.NextPageToken!;
+            }
+            else
+            {
+                searchResult = null;
+				mesage = response.Message;
+            }
+        }
+    }
+}
+
+
+@if (isLoading)
+{
+    <p>Loading...</p>
+}
+else if (searchResult?.Items != null && searchResult.Items.Any())
+{
+
+    <div class="container overflow-hidden mt-3">
+        <div class="row gy-5">
+            @foreach (var item in searchResult.Items)
+            {
+                <div class="col-1"> </div>
+                <div class="col-10">
+                    <div class="card mb-3 h-auto" >
+                        <a href="@($"/video/{item.Id.VideoId}")" class="row g-0 link-offset-2 link-underline link-underline-opacity-0">
+                            <div class="col-md-5">
+                                <img src="@item.Snippet.Thumbnails.High.Url" class="img-fluid rounded-start" alt="image">
+                            </div>
+                            <div class="col-md-7">
+                                <div class="card-body">
+                                    <h5 class="card-title">@item.Snippet.Title</h5>
+                                    <p class="card-text"><small class="text-body-secondary">@item.Snippet.PublishedAt</small></p>
+                                    <p class="card-text">@item.Snippet.ChannelTitle</p>
+                                    <p class="card-text text-secondary">@item.Snippet.Description</p>
+                                    
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-1"> </div>
+            }
+        </div>
+    </div>
+
+
+}
+else
+{
+    <div class="text-center mt-5">
+        <p>:(</p>
+        <p>@mesage</p>
+    </div>
+
+}
