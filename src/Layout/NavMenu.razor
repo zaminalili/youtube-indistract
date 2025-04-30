@@ -8,8 +8,8 @@
 
         <!-- Search (desktop) -->
         <div class="mx-auto desktop-search">
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search on youtube..." aria-label="Search">
+            <form class="d-flex" role="search" @onsubmit="OnSearch">
+                <input class="form-control me-2" type="search" placeholder="Search on youtube..." @bind="searchTerm" aria-label="Search">
                 <button class="btn btn-outline-secondary" type="submit">
                     <i class="fas fa-search"></i>
                 </button>
@@ -58,3 +58,16 @@
     </div>
 </div>
 
+
+@code {
+    private string searchTerm = string.Empty;
+
+    private void OnSearch()
+    {
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+			
+            navigationManager.NavigateTo($"/search/{Uri.EscapeDataString(searchTerm)}");
+        }
+    }
+}

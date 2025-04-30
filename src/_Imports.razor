@@ -11,9 +11,12 @@
 @using youtube_indistract.Services.Abstract
 @inject ILocalStorageService localStorageService
 
+
+@inject NavigationManager navigationManager
+
 @inject IYoutubeApiService youtubeApiService
 
 @using youtube_indistract.Models
 
-@inject NavigationManager navigationManager
+@using System.Net
 
