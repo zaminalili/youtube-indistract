@@ -1,0 +1,43 @@
+﻿@page "/video/{videoId}"
+
+<PageTitle>
+	Video
+</PageTitle>
+
+@code {
+	[Parameter] public string videoId { get; set; } = string.Empty;
+
+	private bool isLoading = true;
+	MarkupString EmbedHtml;
+
+	protected async override Task OnInitializedAsync()
+	{
+		isLoading = true;
+
+		EmbedHtml = Decode(videoId, 1008, 567);
+
+		isLoading = false;
+	}
+
+	MarkupString Decode(string videoId, int width = 560, int height = 315) 
+	{
+		return new MarkupString($"<iframe width='{width}' height='{height}' src='https://www.youtube.com/embed/{videoId}' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen> </iframe>");
+	}
+
+}
+
+
+@if (isLoading)
+{
+	<div class="d-flex justify-content-center align-items-center vh-100">
+		<div class="spinner-border" role="status">
+			<span class="visually-hidden">Loading...</span>
+		</div>
+	</div>
+}
+else
+{
+	<div class="position-absolute top-50 start-50 translate-middle">
+		@EmbedHtml
+	</div>
+}
