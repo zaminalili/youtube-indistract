@@ -21,7 +21,10 @@
         <div class="d-flex align-items-center ms-auto">
             <!-- Desktop social icons -->
             <div class="desktop-social d-none d-md-flex gap-3 ">
-                <a href="https://github.com/zaminalili/youtube-indistract"><i class="fa-brands fa-github"></i></a>
+                
+                <NavLink href="/settings">
+                    <i class="fa-solid fa-gear"></i>
+                </NavLink>
             </div>
 
             <!-- Mobile icons -->
@@ -29,9 +32,9 @@
                 <button class="btn btn-link" onclick="toggleMobileSearch()" aria-label="Axtar">
                     <i class="fas fa-search"></i>
                 </button>
-                <button class="btn btn-link" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSocial" aria-controls="offcanvasSocial" aria-label="Sosial">
-                    <i class="fa-solid fa-bars"></i>
-                </button>
+                <NavLink class="btn btn-link" href="/settings">
+                    <i class="fa-solid fa-gear"></i>
+                </NavLink>
             </div>
         </div>
     </div>
@@ -42,20 +45,6 @@
     <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search on youtube..." aria-label="Search">
     </form>
-</div>
-
-<!-- Offcanvas social media panel -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasSocial" aria-labelledby="offcanvasSocialLabel">
-    <div class="offcanvas-header">
-        @* <h5 class="offcanvas-title" id="offcanvasSocialLabel">Youtube Indistract</h5> *@
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Bağla"></button>
-    </div>
-    <div class="offcanvas-body d-flex flex-column gap-3">
-        <a href="https://github.com/zaminalili/youtube-indistract">
-            <i class="fa-brands fa-github"></i>
-            Source code
-        </a>
-    </div>
 </div>
 
 
