@@ -1,0 +1,35 @@
+﻿
+
+@media (max-width: 768px) {
+    .desktop-search,
+    .desktop-social {
+        display: none !important;
+    }
+
+    .mobile-icons {
+        display: flex !important;
+    }
+}
+
+@media (min-width: 769px) {
+    .mobile-search-form {
+        display: none !important;
+    }
+}
+
+.mobile-search-form {
+    display: none;
+    width: 100%;
+    padding: 0.5rem 1rem;
+    background-color: #f8f9fa;
+}
+
+    .mobile-search-form.show {
+        display: block !important;
+    }
+
+
+input:focus {
+    border-color: #5c636a !important;
+    box-shadow: 0 0 0 0.25rem rgba(92, 99, 106, 0.25) !important;
+}
