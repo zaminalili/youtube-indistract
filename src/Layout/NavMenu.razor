@@ -42,8 +42,8 @@
 
 <!-- Mobile search input (under the navbar) -->
 <div id="mobileSearchForm" class="mobile-search-form">
-    <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search on youtube..." aria-label="Search">
+    <form class="d-flex" role="search" @onsubmit="OnSearch">
+        <input class="form-control me-2" type="search" placeholder="Search on youtube..." aria-label="Search" @bind="searchTerm">
     </form>
 </div>
 
