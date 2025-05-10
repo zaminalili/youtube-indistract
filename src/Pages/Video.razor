@@ -14,16 +14,10 @@
 	{
 		isLoading = true;
 
-		EmbedHtml = Decode(videoId, 1008, 567);
+		EmbedHtml = Embed.Decode(videoId, 1008, 567);
 
 		isLoading = false;
 	}
-
-	MarkupString Decode(string videoId, int width = 560, int height = 315) 
-	{
-		return new MarkupString($"<iframe width='{width}' height='{height}' src='https://www.youtube.com/embed/{videoId}?rel=0' frameborder='0' allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' allowfullscreen> </iframe>");
-	}
-
 }
 
 
