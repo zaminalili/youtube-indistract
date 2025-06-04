@@ -16,6 +16,12 @@
             </form>
         </div>
 
+    <form class="d-flex" role="search" @onsubmit="WatchVideo">
+        <input class="form-control me-2" type="search" placeholder="Add a video ID" aria-label="Search" @bind="videoId">
+		<button class="btn btn-outline-secondary" type="submit">
+			<i class="fas fa-play"></i>
+		</button>
+    </form>
 
         <!-- Social icons (desktop) and mobile buttons-->
         <div class="d-flex align-items-center ms-auto">
@@ -50,6 +56,8 @@
 
 @code {
     private string searchTerm = string.Empty;
+	private string videoId = string.Empty;
+
 
     private void OnSearch()
     {
@@ -59,4 +67,12 @@
             navigationManager.NavigateTo($"/search/{Uri.EscapeDataString(searchTerm)}");
         }
     }
+
+    	private void WatchVideo()
+	{
+		if (!string.IsNullOrWhiteSpace(videoId))
+		{
+			navigationManager.NavigateTo($"/video/{Uri.EscapeDataString(videoId)}");
+		}
+	}
 }
